@@ -56,7 +56,7 @@ exports.getExpenses = async (req, res) => {
     console.log('55-->',page, limit);
     
     try {
-        const createResponse = await finance.find().sort({createdOn: -1}).skip(skip).limit(limit);
+        const createResponse = await finance.find({},{__v:0}).sort({createdOn: -1}).skip(skip).limit(limit);
         if (createResponse) {
             res.status(200).json({ isSuccess: true, data: createResponse, length: createResponse.length })
         } else {
