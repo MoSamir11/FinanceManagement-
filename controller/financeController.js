@@ -54,9 +54,11 @@ exports.getExpenses = async (req, res) => {
     let limit = req.query.limit;
     const skip = (page - 1) * limit;
     console.log('55-->',page, limit);
+    let {type} = JSON.parse(JSON.stringify(req.body));
+    console.log('58-->',type);
     
     try {
-        const createResponse = await finance.find().sort({createdOn: -1}).skip(skip).limit(limit);
+        const createResponse = await finance.find({type:type,category:category}).sort({createdOn: -1}).skip(skip).limit(limit);
         if (createResponse) {
             res.status(200).json({ isSuccess: true, data: createResponse, length: createResponse.length })
         } else {
